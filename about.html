@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعريف شخصي - TseYFZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        
+        /* أنماط القائمة الذهبية في أعلى اليسار */
+        .gold-sidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .gold-menu-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgb(181, 165, 16), #d6b019);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #0b1a36;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+        
+        .gold-menu-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .gold-menu-btn.active {
+            transform: rotate(45deg);
+            background: linear-gradient(145deg, #0b1a36, #132b54);
+            color: rgb(255, 254, 251);
+        }
+        
+        .gold-menu {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 215, 0, 0.85));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            min-width: 280px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gold-menu.active {
+            display: block;
+            animation: fadeInDown 0.3s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .gold-menu-header {
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #0b1a36;
+            font-size: 1rem;
+            border-bottom: 2px solid rgba(11, 26, 54, 0.2);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .gold-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: #0b1a36;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .gold-menu-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+        
+        .gold-menu-item i {
+            width: 20px;
+            text-align: center;
+            color: #0b1a36;
+        }
+        
+        .gold-menu-divider {
+            height: 1px;
+            background: rgba(11, 26, 54, 0.2);
+            margin: 8px 0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid #FFD700;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            border-top: 5px solid #2a5298;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card.yellow-border {
+            border-top-color: #FFD700;
+        }
+        
+        .card h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card.yellow-border h2 {
+            color: #b8860b;
+        }
+        
+        .card i {
+            color: #2a5298;
+        }
+        
+        .card.yellow-border i {
+            color: #FFD700;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .skill {
+            background-color: #eef5ff;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #1e3c72;
+            border: 1px solid #c9ddff;
+        }
+        
+        .skill.yellow {
+            background-color: #fff9e6;
+            color: #b8860b;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            background-color: #eef5ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2a5298;
+            font-size: 1.2rem;
+        }
+        
+        .contact-icon.yellow {
+            background-color: #fff9e6;
+            color: #b8860b;
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .project {
+            background-color: #f8faff;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .project.yellow {
+            background-color: #fffcf0;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .project h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .project.yellow h3 {
+            color: #b8860b;
+        }
+        
+        footer {
+            background-color: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 20px 20px 0 0;
+            margin-top: 40px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #2a5298;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background-color: #FFD700;
+            color: #1e3c72;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+                padding: 0 15px;
+            }
+        }
+        
+        .highlight {
+            color: #2a5298;
+            font-weight: bold;
+        }
+        
+        .highlight-yellow {
+            color: #FFD700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- صورة رمزية بدلاً من صورة حقيقية -->
+                <div class="profile-img" style="background-image: url('https://i.postimg.cc/7PXhGVvY/Gemini-Generated-Image-ccqqjyccqqjyccqq-(1).png'); 
+            background-size: cover; 
+            background-position: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #FFD700; 
+            font-size: 3rem;">
+    <!-- يمكنك إزالة الأيقونة إذا كانت الصورة واضحة -->
+    <!-- <i class="fas fa-user"></i> -->
+</div>
+                <h1>TseYFZ</h1>
+                <p class="tagline">مطور ومبرمج شغوف بتقنيات الحاسوب والبرمجة. أسعى دائماً لتعلم تقنيات جديدة وبناء حلول إبداعية.</p>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <!-- قسم التعريف الشخصي -->
+            <div class="card">
+                <h2><i class="fas fa-user"></i> من أنا؟</h2>
+                <p>مرحباً! أنا <span class="highlight">TseYFZ</span>، شغوف بالتقنية والبرمجة منذ صغري. أحب استكشاف كل ما يتعلق بالحاسوب وتقنيات البرمجة الحديثة.</p>
+                <p>أستمتع بحل المشكلات المعقدة وتحويل الأفكار إلى واقع ملموس من خلال الكود. أؤمن بقوة التكنولوجيا في تغيير العالم وجعل الحياة أسهل للناس.</p>
+                <p>أبحث دائماً عن فرص لتعلم لغات برمجة جديدة وأطر عمل حديثة، وأشارك في مشاريع مفتوحة المصدر لتحسين مهاراتي ومساعدة المجتمع التقني.</p>
+            </div>
+            
+            <!-- قسم الاهتمامات والهوايات -->
+            <div class="card yellow-border">
+                <h2><i class="fas fa-laptop-code"></i> اهتماماتي البرمجية</h2>
+                <p>أركز حالياً على تطوير مهاراتي في مجالات متعددة من البرمجة والتقنية:</p>
+                <ul style="padding-right: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">تطوير الويب (Frontend و Backend)</li>
+                    <li style="margin-bottom: 10px;">برمجة التطبيقات الذكية</li>
+                    <li style="margin-bottom: 10px;">تعلم الآلة والذكاء الاصطناعي</li>
+                    <li style="margin-bottom: 10px;">أمن المعلومات والهاكينغ الأخلاقي</li>
+                    <li>تطوير الألعاب الإلكترونية</li>
+                </ul>
+            </div>
+          
+                    
+                  /* زر إضافي للمنصة */
+        .platform-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(90deg, #00ff88, #00ffaa);
+            color: #0b1a36;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .platform-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .gold-sidebar {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .gold-menu-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .gold-menu {
+                top: 60px;
+                min-width: 250px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gold-sidebar {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .gold-menu-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .gold-menu {
+                top: 55px;
+                min-width: 220px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="home">
+
+    <!-- شريط التنقل -->
+    <div class="toolbar" role="region" aria-label="شريط التنقل">
+        <div class="toolbar-inner">
+            <div class="toolbar-left">
+                <div class="brand">
+                    <span class="brand-name">TseYFZ</span>
+                    <span class="brand-tag">منصة تعليمية رقمية</span>
+                </div>
+            </div>
+
+            <div class="toolbar-center">
+                <nav class="nav-links">
+                    
+                    <!-- القائمة الذهبية في أعلى اليسار -->
+    <div class="gold-sidebar">
+        <button class="gold-menu-btn" id="goldMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="gold-menu" id="goldMenu">
+            <div class="gold-menu-header">
+                <i class="fas fa-crown"></i> قائمة سريعة
+            </div>
+            
+            <a href="index.html" class="gold-menu-item">
+                <i class="fas fa-home"></i>
+                الصفحة الرئيسية
+            </a>
+            
+            <a href="about.html" class="gold-menu-item">
+                <i class="fas fa-user"></i>
+                صفحتي الشخصية
+            </a>
+            
+            <a href="learning.html" class="gold-menu-item">
+                <i class="fas fa-graduation-cap"></i>
+                تعلم البرمجة
+            </a>
+            
+            <a href="portfolio.html" class="gold-menu-item">
+                <i class="fas fa-briefcase"></i>
+                أعمالي
+            </a>
+            
+            <div class="gold-menu-divider"></div>
+            
+            <div class="gold-menu-header">
+                <i class="fas fa-book"></i> الدورات التعليمية
+            </div>
+            
+            <a href="#html-course" class="gold-menu-item">
+                <i class="fab fa-html5"></i>
+                دورة HTML
+            </a>
+            
+            <a href="#css-course" class="gold-menu-item">
+                <i class="fab fa-css3-alt"></i>
+                دورة CSS
+            </a>
+            
+            <a href="#security-courses" class="gold-menu-item">
+                <i class="fas fa-shield-alt"></i>
+                الأمن السيبراني
+            </a>
+            
+            <div class="gold-menu-divider"></div>
+            
+            <div class="gold-menu-header">
+                <i class="fas fa-external-link-alt"></i> منصات تعلم
+            </div>
+            
+            <a href="https://academy.hsoub.com" target="_blank" class="gold-menu-item">
+                <i class="fas fa-graduation-cap"></i>
+                أكاديمية حسوب
+            </a>
+            
+            <a href="https://www.udacity.com" target="_blank" class="gold-menu-item">
+                <i class="fas fa-laptop-code"></i>
+                Udacity
+            </a>
+            
+            <a href="https://www.coursera.org" target="_blank" class="gold-menu-item">
+                <i class="fas fa-university"></i>
+                Coursera
+            </a>
+      
+   
+                </nav>
+            </div>
+
+            <div class="toolbar-right">
+                <div class="hdr-menu">
+                    <button class="hdr-menu__btn" aria-haspopup="true" aria-expanded="false" title="القائمة">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <ul class="hdr-menu__list" hidden>
+                        <li><a href="index.html" class="hdr-menu__link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li><a href="about.html" class="hdr-menu__link"><i class="fas fa-user"></i> عني</a></li>
+                        <li><a href="portfolio.html" class="hdr-menu__link"><i class="fas fa-briefcase"></i> أعمالي</a></li>
+                        <li><a href="learning.html" class="hdr-menu__link"><i class="fas fa-graduation-cap"></i> تعلم البرمجة</a></li>
+                        <li class="hdr-section">— الدورات —</li>
+                        <li><a href="#html-course" class="hdr-menu__link"><i class="fab fa-html5"></i> دورة HTML</a></li>
+                        <li><a href="#css-course" class="hdr-menu__link"><i class="fab fa-css3-alt"></i> دورة CSS</a></li>
+                        <li><a href="#security-courses" class="hdr-menu__link"><i class="fas fa-shield-alt"></i> الأمن السيبراني</a></li>
+                        <li class="hdr-section">— تواصل —</li>
+                        <li><a href="#contact" class="hdr-menu__link"><i class="fas fa-envelope"></i> اتصل بي</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+            <!-- قسم المهارات التقنية -->
+            <div class="card">
+                <h2><i class="fas fa-code"></i> مهاراتي التقنية</h2>
+                <p>لدي معرفة جيدة بعدة لغات برمجة وأطر عمل وتقنيات:</p>
+                <div class="skills-list">
+                    <div class="skill">HTML & CSS</div>
+                    <div class="skill">JavaScript</div>
+                    <div class="skill">Python</div>
+                    <div class="skill">Java</div>
+                    <div class="skill">C++</div>
+                    <div class="skill">React</div>
+                    <div class="skill">Node.js</div>
+                    <div class="skill">Git & GitHub</div>
+                    <div class="skill">SQL</div>
+                    <div class="skill">Linux</div>
+                </div>
+            </div>
+            
+            <!-- قسم المشاريع -->
+            <div class="card yellow-border">
+                <h2><i class="fas fa-project-diagram"></i> مشاريعي البرمجية</h2>
+                <p>شاركت في تطوير عدة مشاريع برمجية منها:</p>
+                <div class="projects">
+                    <div class="project">
+                        <h3>نظام إدارة المهام</h3>
+                        <p>تطبيق ويب لإدارة المهام اليومية باستخدام React وNode.js</p>
+                    </div>
+                    <div class="project yellow">
+                        <h3>حاسبة علمية متقدمة</h3>
+                        <p>برنامج بلغة Python يوفر وظائف رياضية متقدمة</p>
+                    </div>
+                    <div class="project">
+                        <h3>موقع شخصي تفاعلي</h3>
+                        <p>تصميم وتطوير موقع شخصي تفاعلي باستخدام HTML5 وCSS3 وJavaScript</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم أهدافي المستقبلية -->
+            <div class="card">
+                <h2><i class="fas fa-bullseye"></i> أهدافي المستقبلية</h2>
+                <p>أسعى لتحقيق الأهداف التالية في رحلتي البرمجية:</p>
+                <ul style="padding-right: 20px; margin-top: 15px;">
+                    <li style="margin-bottom: 10px;">إتقان تطوير تطبيقات الذكاء الاصطناعي</li>
+                    <li style="margin-bottom: 10px;">المشاركة في مشاريع مفتوحة المصدر كبيرة</li>
+                    <li style="margin-bottom: 10px;">تطوير لعبة إلكترونية متكاملة</li>
+                    <li>إنشاء قناة تعليمية لنشر المعرفة البرمجية</li>
+                </ul>
+            </div>
+            
+            <!-- قسم التواصل -->
+            <div class="card yellow-border">
+                <h2><i class="fas fa-envelope"></i> تواصل معي</h2>
+                <p>أحب التواصل مع المبرمجين والمهتمين بالتقنية لمشاركة المعرفة والخبرات.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>البريد الإلكتروني:</strong><br>
+                            tseyfz.dev@example.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon yellow">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div>
+                            <strong>GitHub:</strong><br>
+                            github.com/TseYFZ
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div>
+                            <strong>LinkedIn:</strong><br>
+                            linkedin.com/in/TseYFZ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2026 TseYFZ. جميع الحقوق محفوظة.</p>
+            <p>صفحة تعريف شخصي - شغف بالبرمجة والتقنية</p>
+            <div class="social-links">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-codepen"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
