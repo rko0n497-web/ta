@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JM[AIL] · INBOX · EPSTEIN BLACK</title>
+    <style>
+        /* ----------------------------- */
+        /* DARK GMAIL CLONE - EPSTEIN FILES */
+        /* ----------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #000000;
+            color: #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* TOP NAVIGATION (Gmail Style) */
+        .top-bar {
+            background: #0a0a0a;
+            border-bottom: 1px solid #1f1f1f;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .jmail-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .jmail-logo h2 {
+            font-size: 22px;
+            font-weight: 500;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .jmail-logo span {
+            background: #1e1e1e;
+            padding: 2px 10px;
+            border-radius: 6px;
+            color: #aaa;
+            font-size: 12px;
+            border: 1px solid #333;
+        }
+        .hat-icon {
+            font-size: 24px;
+            transform: rotate(-5deg);
+        }
+        .user-badge {
+            background: #121212;
+            padding: 6px 18px;
+            border-radius: 40px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        .logout-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 5px 12px;
+            border-left: 1px solid #333;
+        }
+        /* MAIN LAYOUT (Gmail Clone) */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            background: #000;
+        }
+        /* SIDEBAR (LEFT) */
+        .sidebar {
+            width: 260px;
+            background: #070707;
+            border-right: 1px solid #1a1a1a;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .compose-btn {
+            background: #1c1c1c;
+            border: 1px solid #3a3a3a;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            transition: 0.2s;
+        }
+        .compose-btn:hover {
+            background: #262626;
+            border-color: #777;
+        }
+        .folder-list {
+            list-style: none;
+        }
+        .folder-item {
+            padding: 10px 18px;
+            margin-bottom: 4px;
+            border-radius: 20px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+        }
+        .folder-item.active {
+            background: #1e1e1e;
+            color: white;
+            font-weight: 500;
+        }
+        .folder-item i { width: 20px; color: #888; }
+        .people-list {
+            margin-top: 40px;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 20px;
+        }
+        .people-header {
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        .contact {
+            padding: 8px 18px;
+            color: #aaa;
+            font-size: 13px;
+        }
+        /* MAIN INBOX */
+        .inbox-area {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .inbox-toolbar {
+            padding: 15px 25px;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+        }
+        .email-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+        .email-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 25px;
+            border-bottom: 1px solid #121212;
+            color: #ddd;
+            font-size: 14px;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+        .email-row:hover {
+            background: #0c0c0c;
+            border-bottom-color: #333;
+        }
+        .email-star { margin-right: 15px; color: #555; }
+        .email-sender { width: 180px; font-weight: 500; color: #fff; }
+        .email-subject { flex: 1; color: #ccc; }
+        .email-date { color: #777; font-size: 12px; }
+        .redacted {
+            background: #2a2a2a;
+            color: #aaa;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        /* ADMIN PANEL (يظهر فقط للمسؤول) */
+        .admin-panel {
+            background: #0c0c0c;
+            border-left: 4px solid #5a1e1e;
+            padding: 20px 25px;
+            margin: 20px;
+            border-radius: 0;
+            display: none; /* يظهر للمسؤول فقط */
+        }
+        .admin-panel.visible {
+            display: block;
+        }
+        .admin-title {
+            color: #b33;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .admin-card {
+            background: #111;
+            padding: 15px;
+            border: 1px solid #2a2a2a;
+        }
+        .btn-small {
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .epstein-summary {
+            background: #0a0a0a;
+            padding: 20px;
+            margin: 20px;
+            border: 1px dashed #444;
+        }
+        .footer-info {
+            color: #444;
+            padding: 10px 25px;
+            font-size: 11px;
+            border-top: 1px solid #111;
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="jmail-logo">
+            <span class="hat-icon">🎩</span>
+            <h2>JMAIL <span style="font-size:14px; background:#1a1a1a;">DARK</span></h2>
+        </div>
+        <div class="user-badge">
+            <span class="user-avatar">👤</span>
+            <span id="displayUsername">admin</span>
+            <span style="color:#777;" id="userRole">(admin)</span>
+            <button class="logout-btn" id="logoutBtn">⏻ خروج</button>
+        </div>
+    </div>
+    
+    <!-- MAIN INTERFACE - GMAIL CLONE -->
+    <div class="main-container">
+        <!-- SIDEBAR LEFT -->
+        <div class="sidebar">
+            <div class="compose-btn">
+                <span>✏️</span> إنشاء رسالة
+            </div>
+            <ul class="folder-list">
+                <li class="folder-item active"><i>📥</i> الوارد</li>
+                <li class="folder-item"><i>⭐</i> مميزة</li>
+                <li class="folder-item"><i>📤</i> مرسلة</li>
+                <li class="folder-item"><i>🗑️</i> المهملات</li>
+            </ul>
+            <div class="people-list">
+                <div class="people-header">المتواصلون مع إبستين</div>
+                <div class="contact">📌 Ghislaine Maxwell</div>
+                <div class="contact">📌 Larry Summers</div>
+                <div class="contact">📌 Steve Bannon</div>
+                <div class="contact">📌 Noam Chomsky</div>
+                <div class="contact" style="color:#b33;">✪ Prince Andrew</div>
+                <div class="contact">✈️ JFlights (logs)</div>
+            </div>
+        </div>
+        
+        <!-- INBOX CENTER -->
+        <div class="inbox-area">
+            <div class="inbox-toolbar">
+                <span>📋 1–25 من 2,235 رسالة</span>
+                <span style="color:#888;">آخر تحديث: ملفات إبستين 2026</span>
+            </div>
+            <!-- EMAILS (بيانات محاكاة) -->
+            <div class="email-list" id="emailContainer">
+                <div class="email-row">
+                    <span class="email-star">☆</span>
+                    <span class="email-sender">Ghislaine Maxwell</span>
+                    <span class="email-subject">Re: Island visit / "مراجعة الأسماء" <span class="redacted">[معتم]</span></span>
+                    <span class="email-date">١٩ يوليو ٢٠١٩</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">⭐</span>
+                    <span class="email-sender">Larry Summers</span>
+                    <span class="email-subject">Harvard / MIT donor meeting</span>
+                    <span class="email-date">٣ يونيو ٢٠١٥</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">☆</span>
+                    <span class="email-sender">Steve Bannon</span>
+                    <span class="email-subject">Media strategy / SEO suppression</span>
+                    <span class="email-date">٨ أبريل ٢٠١٨</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">☆</span>
+                    <span class="email-sender">Al Seckel</span>
+                    <span class="email-subject">Wikipedia page cleaning</span>
+                    <span class="email-date">١٢ فبراير ٢٠١١</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">⭐</span>
+                    <span class="email-sender">Bill Clinton</span>
+                    <span class="email-subject">Africa trip / foundation</span>
+                    <span class="email-date">٢٠١٤ (مفكك)</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">☆</span>
+                    <span class="email-sender">Elon Musk</span>
+                    <span class="email-subject">Meeting at Zichron Ya'akov?</span>
+                    <span class="email-date">٢٠١٥ (مذكور)</span>
+                </div>
+                <div class="email-row">
+                    <span class="email-star">☆</span>
+                    <span class="email-sender">JPMorgan</span>
+                    <span class="email-subject">Account # [محذوف]</span>
+                    <span class="email-date">٢٠١٣</span>
+                </div>
+            </div>
+            
+            <!-- ADMIN PANEL: يظهر فقط للأدمن -->
+            <div id="adminPanel" class="admin-panel">
+                <div class="admin-title">⚙️ ADMIN COMMANDS — ملفات إبستين: أوامر متقدمة</div>
+                <div class="admin-grid">
+                    <div class="admin-card">
+                        <div style="color:#b33;">🗃️ JDrive</div>
+                        <p style="color:#888; font-size:12px;">3.2M صفحة وثائق</p>
+                        <button class="btn-small">فك الضغط</button>
+                    </div>
+                    <div class="admin-card">
+                        <div style="color:#b33;">🛩️ JFlights</div>
+                        <p style="color:#888;">مسارات الجزيرة</p>
+                        <button class="btn-small">تتبع</button>
+                    </div>
+                    <div class="admin-card">
+                        <div style="color:#b33;">📸 JPhotos</div>
+                        <p style="color:#888;">180k صورة</p>
+                        <button class="btn-small">كشف</button>
+                    </div>
+                    <div class="admin-card">
+                        <div style="color:#b33;">🤖 Jemini (AI)</div>
+                        <p style="color:#888;">بحث ذكي</p>
+                        <button class="btn-small">تشغيل</button>
+                    </div>
+                </div>
+                <div style="margin-top:20px; color:#aaa; font-size:13px;">
+                    📌 إجمالي الزوار: 18.4 مليون (محاكاة) [citation:1][citation:3]
+                </div>
+                <button id="wipeUsersBtn" style="background:#2a0a0a; border-color:#8b0000; margin-top:15px;">⚠️ مسح جميع المستخدمين (للمسؤول)</button>
+            </div>
+            
+            <!-- ملخص قضية إبستين -->
+            <div class="epstein-summary">
+                <span style="color:#b33; font-weight:600;">ملفات إبستين – ما تم كشفه:</span>
+                <p style="color:#aaa; font-size:13px; margin-top:8px;">3 ملايين صفحة، 180,000 صورة، 2,000 فيديو. الإفادات تربط شخصيات سياسية وتجارية. Jmail مبني على عمل Riley Walz و Luke Igel بإستخدام Cursor في 5 ساعات فقط [citation:2][citation:7]. هذا الموقع هو محاكاة سوداء مع نظام دخول صارم.</p>
+            </div>
+           <div class="footer-info" style="display:flex; justify-content:space-between; align-items:center;">
+    <span>JMail Black · نسخة ADMIN</span>
+    <a href="docs.html" style="color:#b33; text-decoration:none; border:1px solid #b33; padding:5px 15px; font-size:12px;">
+        📚 الوثائق الرسمية · H.R. 4405
+    </a>
+    <span>© 2026</span>
+</div>
+        </div>
+    </div>
+
+    <script>
+        // ---------------------------------------------------------
+        // DASHBOARD LOGIC: التحقق من الجلسة، عرض بيانات المستخدم، ADMIN PANEL
+        // ---------------------------------------------------------
+        
+        // 1. التحقق من تسجيل الدخول
+        const session = localStorage.getItem('jmail_current_session');
+        if (!session) {
+            window.location.href = 'index.html';  // ممنوع الدخول المباشر
+        }
+        
+        // 2. عرض بيانات المستخدم
+        const sessionData = JSON.parse(session || '{}');
+        document.getElementById('displayUsername').innerText = sessionData.username || 'user';
+        const roleSpan = document.getElementById('userRole');
+        if (sessionData.role === 'admin') {
+            roleSpan.innerText = '(admin)';
+            roleSpan.style.color = '#b33';
+        } else {
+            roleSpan.innerText = '(user)';
+        }
+        
+        // 3. إظهار لوحة ADMIN فقط إذا كان المستخدم هو ADMIN
+        if (sessionData.role === 'admin') {
+            document.getElementById('adminPanel').classList.add('visible');
+        }
+        
+        // 4. تسجيل الخروج
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('jmail_current_session');
+            window.location.href = 'index.html';
+        });
+        
+        // 5. أمر ADMIN: مسح قاعدة البيانات (حذف كل المستخدمين عدا admin الافتراضي)
+        document.getElementById('wipeUsersBtn')?.addEventListener('click', function() {
+            if (sessionData.role === 'admin') {
+                // إعادة تعيين إلى المستخدمين الافتراضيين فقط
+                const defaultUsers = [
+                    { username: 'admin', password: 'admin123', role: 'admin' },
+                    { username: 'investigator', password: 'epstein', role: 'user' }
+                ];
+                localStorage.setItem('jmail_users', JSON.stringify(defaultUsers));
+                alert('✅ تم مسح جميع المستخدمين. فقط admin و investigator.');
+            }
+        });
+        
+        // 6. محاكاة: لو ضغطت على أي إيميل يعرض تفاصيل (لون فقط)
+        const emailRows = document.querySelectorAll('.email-row');
+        emailRows.forEach(row => {
+            row.addEventListener('click', function() {
+                // مجرد تأثير بصري
+                this.style.backgroundColor = '#1a1a1a';
+                setTimeout(() => this.style.backgroundColor = '', 200);
+            });
+        });
+    </script>
+</body>
+</html>
